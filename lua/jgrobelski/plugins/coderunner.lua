@@ -4,12 +4,25 @@ return {
 	config = function()
 		require("code_runner").setup({
 			filetype = {
-				java = {
-					"cd $dir &&",
-					"javac $fileName &&",
-					"java $fileNameWithoutExt",
-				},
-				python = function() -- enter venv if possible and the exec file
+				java = function()
+					local commands = {}
+					local gradlew_path = "gradlew" -- Change this if gradlew is located elsewhere
+
+					-- Check if gradlew exists and is executable
+					if vim.fn.executable(gradlew_path) == 1 then
+						table.insert(commands, "cd $dir &&")
+						table.insert(commands, "./" .. gradlew_path .. " build &&")
+					else
+						table.insert(commands, "cd $dir &&")
+					end
+
+					-- Compile and run the Java program
+					table.insert(commands, "javac $fileName &&")
+					table.insert(commands, "java $fileNameWithoutExt")
+
+					return commands
+				end,
+				python = function()
 					local venv_path = vim.fn.getcwd() .. "/venv" -- Adjust if your venv is named differently
 					local command = "python3 -u"
 
