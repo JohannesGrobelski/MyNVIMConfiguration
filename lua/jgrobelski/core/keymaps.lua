@@ -89,12 +89,8 @@ keymap.set("n", "<leader>fm", function()
 end, { desc = "Treesitter symbols" })
 
 -- spectre
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>ir", -- 'Instant Replace' keybinding
-	":lua require('spectre').open_visual({select_word=true, is_insert_mode=true})<CR>",
-	{ noremap = true, silent = true }
-)
+vim.api.nvim_set_keymap("n", "<leader>Sr", "<cmd>lua require('spectre').open()<CR>", { noremap = true, silent = true })
+
 -- Set LSP keybindings
 keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", { desc = "Show LSP references" })
 keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { desc = "Go to declaration" })
