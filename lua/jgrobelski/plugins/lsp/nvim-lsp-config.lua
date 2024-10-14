@@ -38,21 +38,25 @@ return {
 
 		-- setup xml lsp
 		lspconfig.lemminx.setup({
+			filetypes = { "xml" },
+			capabilities = capabilities,
+			on_attach = function(client, bufnr)
+				-- Add additional LSP functionalities (e.g. autocompletion, hover, etc.)
+				local opts = { noremap = true, silent = true }
+				vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+				vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+				vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+			end,
 			settings = {
 				xml = {
-					schema = {
-						["http://schemas.android.com/apk/res/android"] = {
-							type = "object",
-							properties = {
-								-- Add property definitions here as needed
-							},
+					server = {
+						validation = {
+							enabled = true, -- Ensures LemMinX performs validation
 						},
 					},
-					validate = true,
 				},
 			},
 		})
-
 		-- Set the Python host program to the currently active pyenv virtual environment
 		local handle = io.popen("pyenv which python")
 		local python_path = handle:read("*a")

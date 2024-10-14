@@ -19,6 +19,7 @@ require("lazy").setup({
 	{ import = "jgrobelski.plugins.navigation" },
 	{ import = "jgrobelski.plugins.motions" },
 	{ import = "jgrobelski.plugins.dap" },
+	{ import = "jgrobelski.plugins.linting&formatters" },
 	{ import = "jgrobelski.plugins.git" },
 	{ import = "jgrobelski.plugins.lsp" },
 }, {

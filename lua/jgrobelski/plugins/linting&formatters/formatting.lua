@@ -1,6 +1,7 @@
 return {
 	"stevearc/conform.nvim",
 	event = { "BufReadPre", "BufNewFile" },
+	enabled = false,
 	config = function()
 		local conform = require("conform")
 
@@ -20,7 +21,8 @@ return {
 				liquid = { "prettier" },
 				lua = { "stylua" },
 				python = { "black" },
-				java = { "google-java-format" }, -- Add this line for Java formatting
+				--NOTE: still search for good and CONFIGURABLE java formatter
+				--java = { "google-java-format" }, -- Add this line for Java formatting
 			},
 			format_on_save = {
 				lsp_fallback = true,
