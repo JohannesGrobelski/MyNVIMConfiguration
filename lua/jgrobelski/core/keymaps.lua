@@ -23,7 +23,7 @@ keymap.set("i", "jk", "<ESC>")
 keymap.set("n", "<leader>wq", ":wq<CR>") -- save and quit
 keymap.set("n", "<leader>qq", "<cmd> bd <CR><cmd> q! <CR>") -- quit without saving
 keymap.set("n", "<leader>ww", ":w<CR>") -- save
-keymap.set("n", "n", ":Neotree toggle<CR>") -- save
+keymap.set("n", "<leader>n", ":Neotree toggle<CR>") -- save
 keymap.set("n", "m", ":")
 keymap.set("c", "jj", "<ESC>")
 
@@ -87,6 +87,8 @@ keymap.set("n", "<leader>fi", telescope_builtin.lsp_incoming_calls, { desc = "LS
 keymap.set("n", "<leader>fm", function()
 	telescope_builtin.treesitter({ default_text = ":method:" })
 end, { desc = "Treesitter symbols" })
+
+keymap.set("n", "<leader>so", ":SymbolsOutline<CR>", { desc = "Toggle Symbols Outline" }) -- Keybinding to toggle SymbolsOutline
 
 -- spectre
 vim.api.nvim_set_keymap("n", "<leader>Sr", "<cmd>lua require('spectre').open()<CR>", { noremap = true, silent = true })
