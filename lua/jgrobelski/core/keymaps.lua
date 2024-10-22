@@ -141,7 +141,18 @@ vim.keymap.set("n", "<leader>rbf", ":Refactor extract_block_to_file")
 
 --linting
 vim.keymap.set("n", "<leader>l", function()
-	require("lint").try_lint()
+    require("lint").try_lint()
+end, { desc = "Trigger linting for current file" })
+vim.keymap.set("n", "<leader>L", function()
+    if vim.g.linting_enabled then
+        vim.diagnostic.disable()
+        vim.g.linting_enabled = false
+        print("Linting disabled")
+    else
+        vim.diagnostic.enable()
+        vim.g.linting_enabled = true
+        print("Linting enabled")
+    end
 end, { desc = "Trigger linting for current file" })
 
 -- Debugging

@@ -42,3 +42,8 @@ vim.cmd([[
   hi TelescopePreviewNormal guibg=NONE ctermbg=NONE
   hi TelescopeSelection guibg=NONE ctermbg=NONE
 ]])
+
+-- Set the line number column background to transparent
+vim.cmd [[highlight LineNr ctermbg=NONE guibg=NONE]]
+vim.cmd [[highlight SignColumn ctermbg=NONE guibg=NONE]]
+
