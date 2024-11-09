@@ -63,21 +63,44 @@ return {
 		handle:close()
 		vim.g.python3_host_prog = python_path:gsub("%s+", "") -- Remove any trailing whitespace
 
-		-- LSP Configuration for Python
-		require("lspconfig").pyright.setup({
-			filetypes = { "python" },
-			capabilities = capabilities,
-			settings = {
-				python = {
-					analysis = {
-						typeCheckingMode = "basic", -- or "strict" if you prefer
-						useLibraryCodeForTypes = true,
-					},
-				},
-			},
-		})
 
-		-- Change the Diagnostic symbols in the sign column (gutter)
+
+        -- Print startup message
+        print("Setting up Pyright with Python path: /home/johannes/.pyenv/versions/.venv/bin/python")
+
+        -- Configure Pyright
+        lspconfig.pyright.setup({
+            capabilities = capabilities,
+            before_init = function(_, config)
+                config.settings.python.pythonPath = "/home/johannes/.pyenv/versions/.venv/bin/python"
+            end,
+            settings = {
+                python = {
+                    pyright = {
+                        autoImportCompletion = true
+                    },
+                    python = {
+
+                    },
+                    pythonPath = "/home/johannes/.pyenv/versions/.venv/bin/python",
+                    venvPath = "/home/johannes/.pyenv/versions",
+                    venv = ".venv",
+                    analysis = {
+                        extraPaths = {
+                            "/home/johannes/.pyenv/versions/.venv/lib/python3.12/site-packages",
+                            "/home/johannes/.pyenv/versions/3.12.3/lib/python3.12",
+                            "/home/johannes/.pyenv/versions/3.12.3/lib/python3.12/lib-dynload",
+                        },
+                        autoSearchPaths = true,
+                        useLibraryCodeForTypes = true,
+                        diagnosticMode = "openFileOnly",
+                        typeCheckingMode = "off"
+                    }
+                }
+            }
+        })
+
+        -- Change the Diagnostic symbols in the sign column (gutter)
 		-- (not in youtube nvim video)
 		local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
 		for type, icon in pairs(signs) do

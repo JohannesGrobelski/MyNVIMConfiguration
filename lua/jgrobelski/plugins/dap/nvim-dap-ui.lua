@@ -146,62 +146,44 @@ return {
 				vmArgs = "" .. "-Xmx2g ",
 			},
 		}
+        
+        -- Set up dap-python with your venv Python
+        require("dap-python").setup("/home/johannes/.pyenv/versions/.venv/bin/python")
 
-		local dap_python = require("dap-python")
-		dap_python.setup("~/.pyenv/versions/myenv/bin/python") -- Adjust this path to match your Python interpreter
+        -- Simple configuration to run current file
+        dap.configurations.python = {
+            {
+                type = "python",
+                request = "launch",
+                name = "Debug Current File",
+                program = "${file}",
+                pythonPath = "/home/johannes/.pyenv/versions/.venv/bin/python",
+                console = "integratedTerminal",
+                cwd = "${workspaceFolder}",
+            },
+        }
 
-		dap.configurations.python = {
-			{
-				-- Launch configuration for Python script
-				type = "python", -- Debug adapter type
-				request = "launch", -- Request type: launch a new instance
-				name = "Launch file", -- Name of the configuration
-				program = "${file}", -- This will run the current file in the buffer
-				pythonPath = function()
-					-- Use the Python from the active virtual environment
-					local venv_path = os.getenv("VIRTUAL_ENV")
-					if venv_path then
-						return venv_path .. "/bin/python"
-					else
-						return "/usr/bin/python3" -- Fallback if no venv is active
-					end
-				end,
-			},
-			{
-				-- Attach to a running Python process
-				type = "python",
-				request = "attach",
-				name = "Attach to process",
-				connect = {
-					port = 5678, -- Default port for debugpy
-					host = "127.0.0.1",
-				},
-				processId = require("dap.utils").pick_process,
-			},
-			{
-				-- Run tests using pytest or unittest
-				type = "python",
-				request = "launch",
-				name = "Run pytest",
-				module = "pytest",
-				args = { "-v" }, -- Verbose mode
-			},
-		}
-		-- Attempt to set up the Python adapter
-		local success, _ = pcall(function()
-			dap_python.setup("python") -- Use the global Python interpreter
-		end)
-		if not success then
-			-- Notify the user if debugpy is not installed
-			vim.notify(
-				"Error: debugpy is not installed. Please install it like this: pip install debugpy in venv or globally.",
-				vim.log.levels.ERROR
-			)
-		end
+        -- Add a keymap to debug current file
+        vim.keymap.set("n", "<F5>", function()
+            -- If debugpy isn't installed, install it
+            local handle = io.popen("/home/johannes/.pyenv/versions/.venv/bin/pip list | grep debugpy")
+            local result = handle:read("*a")
+            handle:close()
+            
+            if result == "" then
+                print("Installing debugpy...")
+                os.execute("/home/johannes/.pyenv/versions/.venv/bin/pip install debugpy")
+                print("debugpy installed!")
+            end
+            
+            -- Start debugging current file
+            require("dap").continue()
+        end, { desc = "Debug current file" })
 
-		-- Enable nvim-dap-repl-highlights
-		--require("nvim-dap-repl-highlights").setup()
-		--
-		--
-	end,
+        -- Basic debugging keymaps
+        vim.keymap.set("n", "<F9>", dap.toggle_breakpoint, { desc = "Toggle Breakpoint" })
+        vim.keymap.set("n", "<F10>", dap.step_over, { desc = "Step Over" })
+        vim.keymap.set("n", "<F11>", dap.step_into, { desc = "Step Into" })
+        vim.keymap.set("n", "<F12>", dap.step_out, { desc = "Step Out" })
+    end,
 }
