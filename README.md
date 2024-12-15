@@ -1,6 +1,6 @@
 # My NVIM-Config V1.1
 
-Description
+# Description
 
 The goal of this configuration is to enable Neovim for full-stack development (including Java and JavaScript/TypeScript) and native Android app development with Java.
 
