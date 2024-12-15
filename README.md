@@ -14,14 +14,14 @@ The goal of this configuration is to enable Neovim for full-stack development (i
 
 # Structure
 
-├── init.lua: Einstiegspunkt in die Konfiguration
-├── lazy-lock.json: Lock für installierte Lazy Plugins
-├── lua: Ordner für Konfiguration
-│ ├── core: Basiskonfiguration der installierten Plugins
-│ ├── options.lua: optionen für nvim: netrw-konfig, linenumbers, tab&indents, wrap, searchsettings
-│ ├── keymaps.lua: Keyboard Map
-│ ├── plugins: Installation und Konfiguration der Plugins
-│ ├── lazy.lua: Bootstrap von Lazy
+├── init.lua: Entry point for the configuration
+├── lazy-lock.json: Lock file for installed Lazy plugins
+├── lua: Folder for configuration
+│ ├── core: Basic configuration of the installed plugins
+│ ├── options.lua: Options for nvim: netrw config, line numbers, tabs & indents, wrap, search settings
+│ ├── keymaps.lua: Keyboard map
+│ ├── plugins: Installation and configuration of plugins
+│ ├── lazy.lua: Bootstrap for Lazy
 
 # Base configuration
 
