@@ -1,6 +1,10 @@
-# Meine NVIM-Config V1.1
+# My NVIM-Config V1.1
 
-# Vorraussetzungen
+Description
+
+The goal of this configuration is to enable Neovim for full-stack development (including Java and JavaScript/TypeScript) and native Android app development with Java.
+
+# Prerequisites 
 
 1. Brew
 2. NVIM 0.10
@@ -8,9 +12,7 @@
 4. ripgrep
 5. node/npm
 
-# Aufbau
-
---TODO:
+# Structure
 
 ├── init.lua: Einstiegspunkt in die Konfiguration
 ├── lazy-lock.json: Lock für installierte Lazy Plugins
@@ -21,7 +23,7 @@
 │ ├── plugins: Installation und Konfiguration der Plugins
 │ ├── lazy.lua: Bootstrap von Lazy
 
-# Basiskonfiguration
+# Base configuration
 
 This `options.lua` configures the leader key, relative and absolute line numbers,
 tab and indentation settings, search behavior, cursorline, and color scheme support.
@@ -86,7 +88,7 @@ The incremental selection feature is set up with key mappings that allow users t
 
 ### typescript-language-server
 
-- unterstützt js,ts,jsx,tsx
+- supports js,ts,jsx,tsx
 
 ### nvim-java
 
@@ -104,10 +106,14 @@ Its configuration includes key mappings for navigation and selection in the comp
 
 ### Java
 
-Java Debugging wird hier ganz gut erklärt: youtube.com/watch?v=kbRIosrvof0
-Kurzgefasst nutzt mfussenegger/nvim-dap JDTLS, welches wiederrum den Debugadapter microsoft/java-debug nutzt.
-Dafür muss in der JDTLS Konfiguration java-debug verlinkt werden.
-Außerdem muss der java-debug runtergeladen und gebaut werden (es entsteht eine jar die in jdtls verlinkt werden kann, um von ihm gebraucht zu werden).
+Java debugging is well explained here: youtube.com/watch?v=kbRIosrvof0.
+
+In short, it uses mfussenegger/nvim-dap with JDTLS, which in turn utilizes the Microsoft java-debug adapter.
+
+To set this up:
+1. The JDTLS configuration must link to java-debug.
+2. Additionally, java-debug must be downloaded and built. This process generates a .jar file, which can then be linked in JDTLS to make use of the adapter.
+
 
 ### Other language plugins
 
@@ -134,24 +140,26 @@ Außerdem muss der java-debug runtergeladen und gebaut werden (es entsteht eine 
 - `gbprod/substitute.nvim`: key mappings for substituting with (`s`), substituting a whole line (`ss`), substituting to the end of a line (`S`), and substituting in visual mode (`s`).
 - `nvim-surround`: adds surround motion `ys` + `motion` (like `iw`) + replacement (like `"`). Other motions delete surround (`ds`), change surround (`cs`).
 
-# TODO
+# Sources
 
-- #TODO python debuging funktioniert noch nicht ganz ("core.utils")
-- snippet support (z.B. yuki-yano/tsnip.nvim) für java,ts
-- nvim-cmp erweitern (was kann ich aus https://github.com/hrsh7th/nvim-cmp/wiki/List-of-sources gebrauchen?)
-- test framework installieren (z.B. nvim-neotest/neotest)
+This configuration is based on the following:
 
-# Quellen
+1. Josean Martinez: How I Setup Neovim To Make It AMAZING in 2024: The Ultimate Guide
+https://www.youtube.com/watch?v=6pAG3BHurdM
 
-Diese Config baut auf folgendem auf:
+2. Built upon the base configuration from ThePrimagen
+https://www.youtube.com/watch?v=w7i4amO_zaE
+2.1. ThePrimeagen/harpoon: Bookmarks for quickly switching between files.
+2.2. mbbill/undotree: View a tree of undos and revert changes.
+2.3. tpope/vim-fugitive: Wrapper for Neovim Git commands.
+2.4. nvim-telescope/telescope: Find, filter, select files, and more.
 
-1. Josean Martinez: How I Setup Neovim To Make It AMAZING in 2024: The Ultimate Guide (https://www.youtube.com/watch?v=6pAG3BHurdM)
-2. Darauf aufbauend die Grundkonfiguration von ThePrimagen (https://www.youtube.com/watch?v=w7i4amO_zaE)
-   2.1. ThePrimeagen/harpoon: Lesezeichen für Datein um schnell zwischen ihnen zu springen
-   2.2. mbbill/undotree: Baum der Undos aufrufen und in Änderungen zurückgehen können
-   2.3. tpope/vim-fugitive: Wrapper um nvim Git Kommandos
-   2.4. nvim-telescope/telescope: Finden, Filter, Auswählen u.v.m von Datein
-3. Eigene Java-LSP-Konfiguration
-   4.1. Einbinden von jdtls
-4. Eigene Web-LSP-Konfiguration
-   - unterstützung für HTML, JS, TS, CSS
+3. Custom Java LSP configuration:
+3.1. Integration of JDTLS.
+
+4. Custom web LSP configuration:
+Support for HTML, JavaScript, TypeScript, and CSS.
+
+
+
+
