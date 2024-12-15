@@ -27,6 +27,7 @@ return {
 			cssls = { "css", "scss", "less" },
 			docker_compose_language_service = { "yaml", "yaml.docker-compose" },
 			groovyls = { "groovy" },
+            kotlin_language_server = {"kotlin"}
 		}
 
 		for lsp, filetypes in pairs(server_to_filetype_map) do
